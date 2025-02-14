@@ -34,7 +34,7 @@ k = m * sqrt((ω₂^2 - f^2) / N²)
 x₀ = -3L/2
 parameters = (; k, ω=ω₂, m, δ, x₀, U=0.1)
 @inline A(x, p) = exp(-(x - x₀)^2 / 2δ^2)
-@inline igw_forcing(x, z, t, p) = p.U / p.ω * A(x, p) * cos(p.k * x - p.ω * t) * sin(p.m * z)
+@inline igw_forcing(x, z, t, p) = p.ω * p.U * A(x, p) * cos(p.k * x - p.ω * t) * sin(p.m * z)
 u_forcing = Forcing(igw_forcing; parameters)
 
 model = HydrostaticFreeSurfaceModel(; grid, coriolis,
